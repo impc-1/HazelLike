@@ -1,7 +1,7 @@
 #pragma once
 
 
-// use 
+// use Hzazel engine
 #include "Hazel/Application.h"
 
 //----------LOG--------

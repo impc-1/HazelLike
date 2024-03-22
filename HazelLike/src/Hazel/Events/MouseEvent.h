@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Event.h"
-#include <sstream>
+
 namespace Hazel {
 	class HAZEL_API MouseMovedEvent : public Event
 	{
@@ -18,7 +18,7 @@ namespace Hazel {
 			return ss.str();
 		}
 		EVENT_CLASS_TYPE(MouseMoved)
-		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+			EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	private:
 		float m_MouseX, m_MouseY;
 	};
@@ -38,7 +38,7 @@ namespace Hazel {
 			return ss.str();
 		}
 		EVENT_CLASS_TYPE(MouseScrolled)
-		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+			EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	private:
 		float m_XOffset, m_YOffset;
 	};
@@ -47,9 +47,9 @@ namespace Hazel {
 	class HAZEL_API MouseButtonEvent : public Event
 	{
 	public:
-		
+
 		inline float GetMouseButton() const { return m_Button; }
-		
+
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	protected:
 		MouseButtonEvent(int button)
@@ -62,7 +62,7 @@ namespace Hazel {
 	public:
 		MouseButtonPressedEvent(int button)
 			:MouseButtonEvent(button) {}
-	
+		
 		std::string ToString() const override
 		{
 			std::stringstream ss;
