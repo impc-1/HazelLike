@@ -43,6 +43,7 @@ namespace Hazel {
 		{
 			std::stringstream ss;
 			ss << "KeyReleaseEvent :" << m_KeyCode;
+			return ss.str();
 		}
 		EVENT_CLASS_TYPE(KeyReleased)
 	};

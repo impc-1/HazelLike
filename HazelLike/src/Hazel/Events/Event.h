@@ -1,6 +1,7 @@
 #pragma once
 #include "Hazel/Core.h"
-
+#include <functional>
+#include <string>
 namespace Hazel {
 
 	enum class EventType

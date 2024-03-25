@@ -3,7 +3,9 @@ workspace "HazelLike"
 	architecture "x64"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
-
+includeDir = {}
+includeDir["GLFW"] = "HazelLike/vendor/GLFW/include"
+include "HazelLike/vendor/GLFW"
 project "HazelLike"
 	location "HazelLike"
 	kind "SharedLib"
@@ -21,8 +23,17 @@ project "HazelLike"
 		"%{prj.name}/src/**.cpp"
 	}
 
-	includedirs {"%{prj.name}/vendor/spdlog/include","%{prj.name}/src"}
-
+	includedirs 
+	{
+		"%{prj.name}/vendor/spdlog/include",
+		"%{prj.name}/src",
+		"%{includeDir.GLFW}"
+	}
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
+	}
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"
