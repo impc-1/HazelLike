@@ -42,8 +42,8 @@ namespace Hazel {
 		{
 			return GetCategoryFlags() & category;
 		}
-	private:
-		bool m_Handled = false;
+
+		bool Handled = false;
 	};
 
 	class EventDispatcher
@@ -61,7 +61,7 @@ namespace Hazel {
 		{
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
-				m_Event.m_Handled = func(*(T*)&m_Event);
+				m_Event.Handled = func(*(T*)&m_Event);
 				return true;
 			}
 			return false;
@@ -70,6 +70,8 @@ namespace Hazel {
 		Event& m_Event;
 
 	};
+
+	// 这个是将对象转换成字符串
 	inline std::ostream& operator<<(std::ostream& os, const Event& e)
 	{
 		return os << e.ToString();

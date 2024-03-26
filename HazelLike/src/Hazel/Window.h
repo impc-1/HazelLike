@@ -5,7 +5,7 @@
 
 namespace Hazel {
 
-	struct WindowProps
+	struct WindowProps //窗体数据集 --长宽标题
 	{
 		std::string Title;
 		unsigned int Width;
@@ -19,24 +19,24 @@ namespace Hazel {
 		}
 	};
 	
-	class HAZEL_API Window
+	class HAZEL_API Window  //窗体 事件
 	{
 	public:
-		using EventCallbackFn = std::function<void(Event&)>;
+		using EventCallbackFn = std::function<void(Event&)>; // 包装一个 参数为自定义事件对象引用 返回值为void 的函数包装器
 
 		virtual ~Window() {}
 
-		virtual void OnUpdate() = 0;
+		virtual void OnUpdate() = 0;                          //窗体更新
 		virtual unsigned int GetWidth() const = 0;
 		virtual unsigned int GetHeight() const = 0;
 
 		// window attributes
 
-		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
+		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;         //设置事件回调
 
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSync() const = 0;
 
-		static Window* Create(const WindowProps& props = WindowProps());
+		static Window* Create(const WindowProps& props = WindowProps());        //创建窗体函数，
 	};
 }

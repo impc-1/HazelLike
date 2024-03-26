@@ -5,7 +5,12 @@ workspace "HazelLike"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 includeDir = {}
 includeDir["GLFW"] = "HazelLike/vendor/GLFW/include"
+includeDir["Glad"] = "HazelLike/vendor/Glad/include"
+includeDir["ImGui"] = "HazelLike/vendor/imgui/include"
+-- include add glfw -> lua, glad-> lua
 include "HazelLike/vendor/GLFW"
+include "HazelLike/vendor/Glad"
+include "HazelLike/vendor/imgui"
 project "HazelLike"
 	location "HazelLike"
 	kind "SharedLib"
@@ -27,11 +32,15 @@ project "HazelLike"
 	{
 		"%{prj.name}/vendor/spdlog/include",
 		"%{prj.name}/src",
-		"%{includeDir.GLFW}"
+		"%{includeDir.GLFW}",
+		"%{includeDir.Glad}",
+		"%{includeDir.ImGui}"
 	}
 	links
 	{
 		"GLFW",
+		"Glad",
+		"ImGui",
 		"opengl32.lib"
 	}
 	filter "system:windows"
@@ -42,7 +51,8 @@ project "HazelLike"
 		defines
 		{
 			"HZ_PLATFORM_WINDOWS",
-			"HZ_BUILD_DLL"
+			"HZ_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands
@@ -51,12 +61,15 @@ project "HazelLike"
 		}
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 	filter "configurations:Release"
 		defines "HZ_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 	filter "configurations:Dist"
 		defines "HZ_DIST"
+		buildoptions "/MD"
 		optimize "On"
 
 project "Sandbox"
@@ -95,10 +108,13 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 	filter "configurations:Release"
 		defines "HZ_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 	filter "configurations:Dist"
 		defines "HZ_DIST"
+		buildoptions "/MD"
 		optimize "On"

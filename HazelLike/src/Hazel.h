@@ -11,3 +11,6 @@
 // -------Entry Point ------------
 #include "Hazel/EntryPoint.h"
 //---------------------------------
+
+//---------- Layer ----------------
+#include "Hazel/Layer.h"
