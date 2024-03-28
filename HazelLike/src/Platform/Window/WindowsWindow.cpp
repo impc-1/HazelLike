@@ -46,10 +46,11 @@ namespace Hazel {
 		}
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window); //将窗口的上下文设置为当前线程的主上下
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress); // glfwGetProcAddress 来作为opengl驱动去加载opengl函数地址
 		HZ_CORE_ASSERT(status, "Failed to load Glad!");
 		
-		glfwSetWindowUserPointer(m_Window, &m_Data);
+		glfwSetWindowUserPointer(m_Window, &m_Data); // 将自定义的指针数据关联到指定窗口上 现在可以通过相对函数和一个窗口上下文拿到需要的数据
 		SetVSync(true);
 
 		// 设置 GLFW 回调函数
@@ -59,7 +60,7 @@ namespace Hazel {
 			data.Width = width;
 			data.Height = height;
 
-			WindowResizeEvent event(width, height);
+			WindowResizeEvent event(width, height); // 自定义事件 用于回调时装载数据传入回调函数
 			data.EventCallback(event);
 		});
 
@@ -68,7 +69,11 @@ namespace Hazel {
 			WindowCloseEvent event;
 			data.EventCallback(event);
 		});
-
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window,unsigned int codepoint){
+			WindowData& data = *(WindowData *)glfwGetWindowUserPointer(window);
+			KeyTypedEvent event(codepoint);
+			data.EventCallback(event);
+		});
 		glfwSetKeyCallback(m_Window, [](GLFWwindow* window,int key, int scancode, int action, int mods) {
 			WindowData& data = *(WindowData *)glfwGetWindowUserPointer(window);
 
@@ -138,11 +143,11 @@ namespace Hazel {
 
 	void WindowsWindow::OnUpdate()
 	{
-		glfwPollEvents();
+		glfwPollEvents();//事件轮询
 		glfwSwapBuffers(m_Window);
 	}
 
-	void WindowsWindow::SetVSync(bool enabled)
+	void WindowsWindow::SetVSync(bool enabled) //需要同步？ 垂直同步
 	{
 		if (enabled)
 			glfwSwapInterval(1);

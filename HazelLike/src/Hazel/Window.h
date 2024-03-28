@@ -34,9 +34,9 @@ namespace Hazel {
 
 		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;         //设置事件回调
 
-		virtual void SetVSync(bool enabled) = 0;
+		virtual void SetVSync(bool enabled) = 0;                          //垂直同步
 		virtual bool IsVSync() const = 0;
-
+		virtual void* GetNativeWindow() const = 0;
 		static Window* Create(const WindowProps& props = WindowProps());        //创建窗体函数，
 	};
 }

@@ -28,8 +28,8 @@ namespace Hazel {
 	public:
 		MouseScrolledEvent(float x, float y)
 			:m_XOffset(x), m_YOffset(y) {}
-		inline float GetX() const { return m_XOffset; }
-		inline float GetY() const { return m_YOffset; }
+		inline float GetXOffset() const { return m_XOffset; }
+		inline float GetYOffset() const { return m_YOffset; }
 
 		std::string ToString() const override
 		{
@@ -48,13 +48,13 @@ namespace Hazel {
 	{
 	public:
 
-		inline float GetMouseButton() const { return m_Button; }
+		inline int GetMouseButton() const { return m_Button; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	protected:
 		MouseButtonEvent(int button)
 			:m_Button(button) {}
-		float m_Button;
+		int m_Button;
 	};
 
 	class HAZEL_API MouseButtonPressedEvent : public MouseButtonEvent
